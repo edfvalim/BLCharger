@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img src="blcharger/assets/BLCharger-logo.png" width="300">
+  <img src="blcharger/assets/BLCLogo.png" width="300">
 </p>
 
 # BLCharger
