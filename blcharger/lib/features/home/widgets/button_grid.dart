@@ -1,4 +1,5 @@
 import 'package:blcharger/features/auth/login_view.dart';
+import 'package:blcharger/features/chargers_list/chargers_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:blcharger/core/widgets/custom_fab.dart';
 import 'package:blcharger/features/qr_code_scanner/qr_code_scanner_view.dart';
@@ -44,7 +45,7 @@ class ButtonGrid extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QRCodeScanner()),
+                MaterialPageRoute(builder: (context) => ChargersListView()),
               );
             },
           ),
