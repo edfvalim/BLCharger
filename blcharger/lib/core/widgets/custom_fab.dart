@@ -7,13 +7,14 @@ class CustomFAB extends StatelessWidget {
 
   const CustomFAB(
       {super.key,
-        required this.icon,
-        required this.label,
-        required this.onPressed});
+      required this.icon,
+      required this.label,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.large(
+      heroTag: key, //"FAB_${hashCode.toString()}",
       backgroundColor: Colors.deepPurple,
       onPressed: onPressed,
       child: Column(
