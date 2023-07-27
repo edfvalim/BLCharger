@@ -1,3 +1,4 @@
+import 'package:blcharger/features/charger/charger_view.dart';
 import 'package:flutter/material.dart';
 
 class ChargersListView extends StatelessWidget {
@@ -32,9 +33,15 @@ class ChargersListView extends StatelessWidget {
           return Card(
             child: ListTile(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('${titles[index]}apertado'),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChargerView(
+                      chargerPhotoUrl:
+                          'https://hips.hearstapps.com/hmg-prod/images/gettyimages-1330280580.jpg',
+                      chargerDescription: 'description here',
+                      pricePerKwh: 12.2,
+                    ),
                   ),
                 );
               },
