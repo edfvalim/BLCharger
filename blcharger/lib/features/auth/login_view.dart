@@ -32,7 +32,9 @@ class _LoginViewState extends State<LoginView> {
                   decoration: const InputDecoration(
                     labelText: 'Usuário',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -42,7 +44,9 @@ class _LoginViewState extends State<LoginView> {
                   decoration: const InputDecoration(
                     labelText: 'Senha',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -50,31 +54,40 @@ class _LoginViewState extends State<LoginView> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePageView()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePageView(),
+                      ),
+                    );
                   },
-                  child: const Text('Entrar',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'Entrar',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PasswordResetView()));
-                    },
-                    child: const Text('Esqueci minha senha')),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PasswordResetView(),
+                      ),
+                    );
+                  },
+                  child: const Text('Esqueci minha senha'),
+                ),
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegistrationView()));
-                    },
-                    child: const Text('Cadastrar')),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegistrationView(),
+                      ),
+                    );
+                  },
+                  child: const Text('Cadastrar'),
+                ),
               ],
             ),
           ),

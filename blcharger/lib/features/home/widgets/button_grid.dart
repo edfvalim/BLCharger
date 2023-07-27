@@ -11,7 +11,10 @@ class ButtonGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+      padding: const EdgeInsets.symmetric(
+        vertical: 0,
+        horizontal: 20,
+      ),
       height: 500,
       width: 500,
       child: GridView.count(
@@ -25,7 +28,9 @@ class ButtonGrid extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QRCodeScanner()),
+                MaterialPageRoute(
+                  builder: (context) => const QRCodeScanner(),
+                ),
               );
             },
           ),
@@ -35,7 +40,9 @@ class ButtonGrid extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QRCodeScanner()),
+                MaterialPageRoute(
+                  builder: (context) => const QRCodeScanner(),
+                ),
               );
             },
           ),
@@ -45,7 +52,9 @@ class ButtonGrid extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChargersListView()),
+                MaterialPageRoute(
+                  builder: (context) => ChargersListView(),
+                ),
               );
             },
           ),
@@ -55,7 +64,9 @@ class ButtonGrid extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginView()),
+                MaterialPageRoute(
+                  builder: (context) => const LoginView(),
+                ),
               );
             },
           ),

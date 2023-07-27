@@ -21,13 +21,15 @@ class _PasswordResetViewState extends State<PasswordResetView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BLCLogo(logoSize: 100),
+                const BLCLogo(logoSize: 100),
                 const SizedBox(height: 50),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Nova senha',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -36,7 +38,9 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                   decoration: const InputDecoration(
                     labelText: 'Confirme a nova senha',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -45,16 +49,18 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                   onPressed: () {
                     // Adicionar a lógica para recuperação de senha
                   },
-                  child: const Text('Recuperar Senha',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'Recuperar Senha',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Voltar para Login')),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Voltar para Login'),
+                ),
               ],
             ),
           ),

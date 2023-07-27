@@ -46,12 +46,17 @@ class QRCodeScannerState extends State<QRCodeScanner> {
                         'Carregador: ${result!.code}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold))
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     : const Text(
                         'Aproxime do QR Code para escanear',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
               ),
             )
@@ -63,11 +68,15 @@ class QRCodeScannerState extends State<QRCodeScanner> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
+    controller.scannedDataStream.listen(
+      (scanData) {
+        setState(
+          () {
+            result = scanData;
+          },
+        );
+      },
+    );
   }
 
   @override

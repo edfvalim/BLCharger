@@ -16,14 +16,13 @@ class HomePageView extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [BLCLogo(logoSize: 130), ButtonGrid()],
+            children: [
+              BLCLogo(logoSize: 130),
+              ButtonGrid(),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-
-
-

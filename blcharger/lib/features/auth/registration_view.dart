@@ -23,14 +23,16 @@ class _RegistrationViewState extends State<RegistrationView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BLCLogo(logoSize: 100),
+                const BLCLogo(logoSize: 100),
                 const SizedBox(height: 50),
                 TextFormField(
                   controller: _usernameController,
                   decoration: const InputDecoration(
                     labelText: 'Usuário',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -40,7 +42,9 @@ class _RegistrationViewState extends State<RegistrationView> {
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -50,7 +54,9 @@ class _RegistrationViewState extends State<RegistrationView> {
                   decoration: const InputDecoration(
                     labelText: 'Senha',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -60,7 +66,9 @@ class _RegistrationViewState extends State<RegistrationView> {
                   decoration: const InputDecoration(
                     labelText: 'Confirmar Senha',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                   ),
                 ),
@@ -69,16 +77,18 @@ class _RegistrationViewState extends State<RegistrationView> {
                   onPressed: () {
                     // Adicionar a lógica para cadastro de usuário
                   },
-                  child: const Text('Cadastrar',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'Cadastrar',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Voltar para Login')),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Voltar para Login'),
+                ),
               ],
             ),
           ),

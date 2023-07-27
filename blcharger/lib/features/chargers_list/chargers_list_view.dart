@@ -23,33 +23,42 @@ class ChargersListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Escolha um carregador'),
-        ),
-        body: ListView.builder(
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-              return Card(
-                  child: ListTile(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(titles[index] + 'apertado'),
-                        ));
-                      },
-                      title:
-                          Text(titles[index], style: TextStyle(fontSize: 20)),
-                      subtitle: Text(subtitles[index],
-                          style: TextStyle(fontSize: 15)),
-                      leading: const CircleAvatar(
-
-                          backgroundImage: NetworkImage(
-                              "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1330280580.jpg"),
-                          radius: 30
-                      ),
-                      trailing:
-                          Icon(Icons.circle_rounded, color: Colors.green)));
-            })
-
-        );
+      appBar: AppBar(
+        title: const Text('Escolha um carregador'),
+      ),
+      body: ListView.builder(
+        itemCount: titles.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${titles[index]}apertado'),
+                  ),
+                );
+              },
+              title: Text(
+                titles[index],
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                subtitles[index],
+                style: const TextStyle(fontSize: 15),
+              ),
+              leading: const CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1330280580.jpg"),
+                radius: 30,
+              ),
+              trailing: const Icon(
+                Icons.circle_rounded,
+                color: Colors.green,
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
