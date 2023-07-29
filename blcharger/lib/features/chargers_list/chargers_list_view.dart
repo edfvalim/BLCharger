@@ -1,4 +1,5 @@
 import 'package:blcharger/features/charger/charger_view.dart';
+import 'package:blcharger/features/charger/chargers_data.dart';
 import 'package:flutter/material.dart';
 
 class ChargersListView extends StatelessWidget {
@@ -36,31 +37,33 @@ class ChargersListView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ChargerView(
+                    builder: (context) => ChargerView(
                       chargerPhotoUrl:
                           'https://hips.hearstapps.com/hmg-prod/images/gettyimages-1330280580.jpg',
-                      chargerDescription: 'description here',
+                      chargerDescription: subtitles[index],
                       pricePerKwh: 12.2,
                     ),
                   ),
                 );
               },
               title: Text(
-                titles[index],
+                'Carregador ${index + 1}',
                 style: const TextStyle(fontSize: 20),
               ),
               subtitle: Text(
-                subtitles[index],
+                'ID: ${ChargersData.chargers[index].id}',
                 style: const TextStyle(fontSize: 15),
               ),
-              leading: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1330280580.jpg"),
+              leading: CircleAvatar(
+                backgroundImage:
+                    AssetImage(ChargersData.chargers[index].chargerImagePath),
                 radius: 30,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.circle_rounded,
-                color: Colors.green,
+                color: ChargersData.chargers[index].isAvailable
+                    ? Colors.green
+                    : Colors.red,
               ),
             ),
           );
