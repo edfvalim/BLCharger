@@ -25,6 +25,16 @@ class MyApp extends StatelessWidget {
       title: 'MyApp',
       theme: ThemeData(
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+          backgroundColor: Colors.deepPurple,
+        ),
       ),
       home: const LoginView(),
     );
