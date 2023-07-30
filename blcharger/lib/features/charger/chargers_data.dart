@@ -2,11 +2,19 @@ import 'package:blcharger/features/charger/charger_model.dart';
 import 'package:blcharger/core/utils/id_generator.dart';
 
 class ChargersData {
-  static List<ChargerModel> chargers = [
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation1.jpeg',
-      chargerDescription: '''TIPO 2 (IEC 62196)
+  static Map<String, ChargerModel> chargers = {};
+  static List<String> chargerIds = [];
+
+  static void populateChargers() {
+    String charger1Id = generateUniqueId();
+    chargerIds.add(charger1Id);
+    chargers[charger1Id] = ChargerModel(
+      name: "Carregador 1",
+      id: charger1Id,
+      imagePath: 'assets/chargingstation1.jpeg',
+      pricePerKwh: 1.9,
+      isAvailable: true,
+      description: '''TIPO 2 (IEC 62196)
 
       Endereço: Av. Sen. Filinto Müler, 1555 - Vila Ipiranga, Campo Grande - MS, 79074-460
 
@@ -19,14 +27,18 @@ class ChargersData {
       Sábado: 08:00–11:00
       Domingo: Fechado
 
-      Telefone: (67) 3345-7543''',
-      pricePerKwh: 12.34,
-      isAvailable: true,
-    ),
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation2.jpeg',
-      chargerDescription: '''TIPO 3 (SuperCharge)
+      Telefone: (67) 3345-7543
+      ''',
+    );
+    String charger2Id = generateUniqueId();
+    chargerIds.add(charger2Id);
+    chargers[charger2Id] = ChargerModel(
+      name: "Carregador 2",
+      id: charger1Id,
+      imagePath: 'assets/chargingstation2.jpeg',
+      pricePerKwh: 1.9,
+      isAvailable: false,
+      description: '''TIPO 3 
 
       Endereço: Rua Padre João Manuel, 222 - Jardins, São Paulo - SP, 01411-000
 
@@ -40,14 +52,17 @@ class ChargersData {
       Domingo: Fechado
 
       Telefone: (11) 3079-3019
-''',
-      pricePerKwh: 12.34,
-      isAvailable: false,
-    ),
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation3.jpeg',
-      chargerDescription: '''TIPO 1 (QuickCharge)
+      ''',
+    );
+    String charger3Id = generateUniqueId();
+    chargerIds.add(charger3Id);
+    chargers[charger3Id] = ChargerModel(
+      name: "Carregador 3",
+      id: charger3Id,
+      imagePath: 'assets/chargingstation3.jpeg',
+      pricePerKwh: 1.9,
+      isAvailable: true,
+      description: '''TIPO 1 
 
     Endereço: Av. Engenheiro Luís Carlos Berrini, 105 - Brooklin, São Paulo - SP, 04571-010
 
@@ -62,13 +77,16 @@ class ChargersData {
 
     Telefone: (11) 5503-6682
     ''',
-      pricePerKwh: 12.34,
-      isAvailable: true,
-    ),
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation4.jpeg',
-      chargerDescription: '''TIPO 1 (MaxCharge)
+    );
+    String charger4Id = generateUniqueId();
+    chargerIds.add(charger4Id);
+    chargers[charger4Id] = ChargerModel(
+      name: "Carregador 4",
+      id: charger4Id,
+      imagePath: 'assets/chargingstation4.jpeg',
+      pricePerKwh: 1.9,
+      isAvailable: false,
+      description: '''TIPO 1 
 
     Endereço: Rua Des. Westphalen, 15 - Centro, Curitiba - PR, 80010-110
 
@@ -83,13 +101,16 @@ class ChargersData {
 
     Telefone: (41) 3013-6000
     ''',
-      pricePerKwh: 12.34,
-      isAvailable: false,
-    ),
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation5.jpeg',
-      chargerDescription: '''TIPO 2 (PowerCharge)
+    );
+    String charger5Id = generateUniqueId();
+    chargerIds.add(charger5Id);
+    chargers[charger5Id] = ChargerModel(
+      name: "Carregador 5",
+      id: charger5Id,
+      imagePath: 'assets/chargingstation5.jpeg',
+      pricePerKwh: 1.9,
+      isAvailable: true,
+      description: '''TIPO 2 
     TIPO 1 (MaxCharge)
 
     Endereço: Rua Des. Westphalen, 15 - Centro, Curitiba - PR, 80010-110
@@ -104,15 +125,17 @@ class ChargersData {
     Domingo: Fechado
 
     Telefone: (41) 3013-6000
-
     ''',
-      pricePerKwh: 12.34,
+    );
+    String charger6Id = generateUniqueId();
+    chargerIds.add(charger6Id);
+    chargers[charger6Id] = ChargerModel(
+      name: "Carregador 6",
+      id: charger6Id,
+      imagePath: 'assets/chargingstation6.jpeg',
+      pricePerKwh: 1.9,
       isAvailable: true,
-    ),
-    ChargerModel(
-      id: generateUniqueId(),
-      chargerImagePath: 'assets/chargingstation6.jpeg',
-      chargerDescription: '''TIPO 3 (TurboCharge)
+      description: '''TIPO 3 
 
       Endereço: Av. Gov. Ivo Silveira, 3581 - Capoeiras, Florianópolis - SC, 88085-002
 
@@ -126,10 +149,7 @@ class ChargersData {
       Domingo: Fechado
 
       Telefone: (48) 3037-4004
-
     ''',
-      pricePerKwh: 12.34,
-      isAvailable: true,
-    ),
-  ];
+    );
+  }
 }
