@@ -1,16 +1,13 @@
+import 'package:blcharger/features/charging_session/charging_session_view.dart';
 import 'package:flutter/material.dart';
-import 'package:blcharger/features/charger/chargers_data.dart';
+import 'package:blcharger/features/charger/charger_model.dart';
 
 class ChargerView extends StatefulWidget {
-  final String chargerPhotoUrl;
-  final String chargerDescription;
-  final double pricePerKwh;
+  final ChargerModel charger;
 
   const ChargerView({
     super.key,
-    required this.chargerPhotoUrl,
-    required this.chargerDescription,
-    required this.pricePerKwh,
+    required this.charger,
   });
 
   @override
@@ -23,7 +20,7 @@ class _ChargerViewState extends State<ChargerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes deste carregador'),
+        title: Text(widget.charger.name),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,8 +33,7 @@ class _ChargerViewState extends State<ChargerView> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
-                    image:
-                        AssetImage(ChargersData.chargers[0].chargerImagePath),
+                    image: AssetImage(widget.charger.imagePath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -45,9 +41,12 @@ class _ChargerViewState extends State<ChargerView> {
               const SizedBox(height: 16.0),
               Column(
                 children: [
-                  Text('ID: ${ChargersData.chargers[0].id}'),
                   Text(
-                    ChargersData.chargers[0].chargerDescription,
+                    'ID: ${widget.charger.id}',
+                    style: TextStyle(fontSize: 9.0),
+                  ),
+                  Text(
+                    widget.charger.description,
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ],
@@ -64,7 +63,7 @@ class _ChargerViewState extends State<ChargerView> {
               children: [
                 Text('Preço: '),
                 Text(
-                  'R\$ ${ChargersData.chargers[0].pricePerKwh.toStringAsFixed(2)}/kWh',
+                  'R\$ ${widget.charger.pricePerKwh.toStringAsFixed(2)}/kWh',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -74,7 +73,12 @@ class _ChargerViewState extends State<ChargerView> {
                 minimumSize: const Size(50, 50),
               ),
               onPressed: () {
-                // Implement your charging functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChargingSessionView(),
+                  ),
+                );
               },
               child: const Text('Iniciar Carregamento'),
             ),
