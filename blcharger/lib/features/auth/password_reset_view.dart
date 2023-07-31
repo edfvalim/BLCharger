@@ -8,7 +8,7 @@ class PasswordResetView extends StatefulWidget {
 }
 
 class _PasswordResetViewState extends State<PasswordResetView> {
-  final TextEditingController _emailController = TextEditingController();
+  //final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
