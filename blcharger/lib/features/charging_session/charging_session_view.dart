@@ -12,6 +12,7 @@ class ChargingSessionView extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChargingSessionViewState createState() => _ChargingSessionViewState();
 }
 
@@ -22,6 +23,7 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Sessão de Carregamento'),
       ),
       body: Container(
@@ -57,40 +59,43 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
             _buildLiveCard(
               iconData: Icons.monetization_on,
               label: 'Valor atual:',
-              stream: sessionData.currentPrice,
+              stream: sessionData.instantPrice,
               dataToString: (value) =>
                   value is double ? 'R\$ ${value.toStringAsFixed(2)}' : '',
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          final elapsedTime =
-              Duration(seconds: 1220); //sessionData.elapsedTime.value;
-          final consumedPower = 10.0; //sessionData.consumedPower.value;
-          final instantPower = 42.0; //sessionData.instantPower.value;
-          final currentPrice = 33.20; //sessionData.currentPrice.value;
-
-          sessionData.dispose();
-
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ChargeSummaryView(
-              elapsedTime: elapsedTime,
-              consumedPower: consumedPower,
-              instantPower: instantPower,
-              currentPrice: currentPrice,
-            ),
-          ));
-        },
-        label: const Text(
-          'Finalizar carregamento',
-          style: TextStyle(color: Colors.white),
-        ),
-        icon: const Icon(Icons.payment, color: Colors.white),
-        backgroundColor: Colors.red,
-      ),
+      floatingActionButton: _finalizeChargingSession(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _finalizeChargingSession() {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        final elapsedTime = sessionData.elapsedTime.value;
+        final instantPower = sessionData.instantPower.value;
+        final consumedPower = sessionData.consumedPower.value;
+        final instantPrice = sessionData.instantPrice.value;
+
+        dispose();
+
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChargeSummaryView(
+            elapsedTime: elapsedTime,
+            consumedPower: consumedPower,
+            instantPower: instantPower,
+            instantPrice: instantPrice,
+          ),
+        ));
+      },
+      label: const Text(
+        'Finalizar carregamento',
+        style: TextStyle(color: Colors.white),
+      ),
+      icon: const Icon(Icons.payment, color: Colors.white),
+      backgroundColor: Colors.red,
     );
   }
 

@@ -4,37 +4,44 @@
 
 import 'dart:async';
 import 'dart:math';
+import 'package:rxdart/rxdart.dart';
 
 class ChargingSessionData {
-  // Stream controller for each piece of data
-  final StreamController<double> _consumedPowerController = StreamController();
-  final StreamController<double> _instantPowerController = StreamController();
-  final StreamController<double> _instantPriceController = StreamController();
-  final StreamController<Duration> _elapsedTimeController = StreamController();
+  static const double initialInstantPower = 42.0;
+  static const double powerPriceFactor = 1.9;
+  static const int powerVariationIntervalMax = 30;
 
-  // Stream getters
-  Stream<double> get consumedPower => _consumedPowerController.stream;
-  Stream<double> get instantPower => _instantPowerController.stream;
-  Stream<double> get currentPrice => _instantPriceController.stream;
-  Stream<Duration> get elapsedTime => _elapsedTimeController.stream;
+  final BehaviorSubject<Duration> _elapsedTimeController = BehaviorSubject();
+  final BehaviorSubject<double> _instantPowerController = BehaviorSubject();
+  final BehaviorSubject<double> _consumedPowerController = BehaviorSubject();
+  final BehaviorSubject<double> _instantPriceController = BehaviorSubject();
 
-  // Constructor
+  // Timers
+  Timer? _powerVariationTimer;
+  Timer? _sessionTimer;
+
+  ValueStream<Duration> get elapsedTime => _elapsedTimeController.stream;
+  ValueStream<double> get instantPower => _instantPowerController.stream;
+  ValueStream<double> get consumedPower => _consumedPowerController.stream;
+  ValueStream<double> get instantPrice => _instantPriceController.stream;
+
   ChargingSessionData() {
     var consumedPower = 0.0;
     var elapsedSeconds = 0;
-    var instantPrice = 0.0;
-    var instantPower = 42.0;
+    var instantPower = initialInstantPower;
     _instantPowerController.add(instantPower);
 
     // Simulation of a possible variation in the instant power
-    Timer.periodic(Duration(seconds: Random().nextInt(30)),
-        (Timer currentPowerTimer) {
-      instantPower = 42 + Random().nextDouble();
+    _powerVariationTimer = Timer.periodic(
+        Duration(seconds: Random().nextInt(powerVariationIntervalMax)),
+        (Timer instantPowerTimer) {
+      instantPower = initialInstantPower + Random().nextDouble();
       _instantPowerController.add(instantPower);
     });
 
     // This is where data from the real source will be pulled and added to stream.
-    Timer.periodic(const Duration(seconds: 1), (Timer sessionTimer) {
+    _sessionTimer =
+        Timer.periodic(const Duration(seconds: 1), (Timer sessionTimer) {
       // Elapsed time
       elapsedSeconds = sessionTimer.tick;
       _elapsedTimeController.add(Duration(seconds: elapsedSeconds));
@@ -44,13 +51,15 @@ class ChargingSessionData {
       _consumedPowerController.add(consumedPower);
 
       // Instant price based on power consumed
-      instantPrice = consumedPower * 1.9;
+      var instantPrice = consumedPower * powerPriceFactor;
       _instantPriceController.add(instantPrice);
     });
   }
 
-  // Close all streams when done
   void dispose() {
+    _powerVariationTimer?.cancel();
+    _sessionTimer?.cancel();
+
     _consumedPowerController.close();
     _instantPowerController.close();
     _instantPriceController.close();

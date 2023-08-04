@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 
 class ChargeSummaryView extends StatelessWidget {
   final Duration elapsedTime;
-  final double consumedPower;
   final double instantPower;
-  final double currentPrice;
+  final double consumedPower;
+  final double instantPrice;
 
   const ChargeSummaryView({
     super.key,
     required this.elapsedTime,
-    required this.consumedPower,
     required this.instantPower,
-    required this.currentPrice,
+    required this.consumedPower,
+    required this.instantPrice,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Resumo da Sessão de Carregamento'),
       ),
       body: Container(
@@ -44,7 +45,7 @@ class ChargeSummaryView extends StatelessWidget {
             ),
             _buildSummaryItem(
               label: 'Valor Total:',
-              value: 'R\$ ${currentPrice.toStringAsFixed(2)}',
+              value: 'R\$ ${instantPrice.toStringAsFixed(2)}',
             ),
             const Spacer(),
           ],
