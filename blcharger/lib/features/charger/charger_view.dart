@@ -31,7 +31,7 @@ class _ChargerViewState extends State<ChargerView> {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
                     image: AssetImage(widget.charger.imagePath),
                     fit: BoxFit.cover,
@@ -43,11 +43,11 @@ class _ChargerViewState extends State<ChargerView> {
                 children: [
                   Text(
                     'ID: ${widget.charger.id}',
-                    style: TextStyle(fontSize: 9.0),
+                    style: const TextStyle(fontSize: 9.0),
                   ),
                   Text(
                     widget.charger.description,
-                    style: TextStyle(fontSize: 18.0),
+                    style: const TextStyle(fontSize: 18.0),
                   ),
                 ],
               ),
@@ -61,10 +61,11 @@ class _ChargerViewState extends State<ChargerView> {
           children: <Widget>[
             Column(
               children: [
-                Text('Preço: '),
+                const Text('Preço: '),
                 Text(
                   'R\$ ${widget.charger.pricePerKwh.toStringAsFixed(2)}/kWh',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -76,7 +77,7 @@ class _ChargerViewState extends State<ChargerView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChargingSessionView(),
+                    builder: (context) => const ChargingSessionView(),
                   ),
                 );
               },

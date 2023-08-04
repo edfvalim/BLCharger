@@ -1,51 +1,88 @@
 import 'package:flutter/material.dart';
-import 'charging_session_data.dart';
 
-class ChargeSummaryView extends StatefulWidget {
-  final ChargingSessionData sessionData;
+class ChargeSummaryView extends StatelessWidget {
+  final Duration elapsedTime;
+  final double consumedPower;
+  final double instantPower;
+  final double currentPrice;
 
-  ChargeSummaryView({required this.sessionData});
+  const ChargeSummaryView({
+    super.key,
+    required this.elapsedTime,
+    required this.consumedPower,
+    required this.instantPower,
+    required this.currentPrice,
+  });
 
-  @override
-  _ChargeSummaryViewState createState() => _ChargeSummaryViewState();
-}
-
-class _ChargeSummaryViewState extends State<ChargeSummaryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Resumo da Sessão'),
+        title: const Text('Resumo da Sessão de Carregamento'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16.0),
-            height: 200,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Tempo decorrido: ', style: TextStyle(fontSize: 20.0)),
-                Text('Energia consumida: ', style: TextStyle(fontSize: 20.0)),
-                Text('Preço total: ', style: TextStyle(fontSize: 20.0)),
-              ],
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text(
+              'Resumo da Sessão',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
+            const SizedBox(height: 24.0),
+            _buildSummaryItem(
+              label: 'Tempo Decorrido:',
+              value: elapsedTime.toString().split('.')[0],
+            ),
+            _buildSummaryItem(
+              label: 'Energia Consumida:',
+              value: '${consumedPower.toStringAsFixed(2)} kWh',
+            ),
+            _buildSummaryItem(
+              label: 'Potência Final:',
+              value: '${instantPower.toStringAsFixed(2)} kW',
+            ),
+            _buildSummaryItem(
+              label: 'Valor Total:',
+              value: 'R\$ ${currentPrice.toStringAsFixed(2)}',
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Navigator.of(context).push(MaterialPageRoute(
-          //   builder: (context) => ChargeSummaryView(sessionData: sessionData),
+          //   builder: (context) => PaymentView(),
           // ));
         },
-        label: const Text('Pagar'),
-        icon: const Icon(Icons.stop),
+        label: const Text(
+          'Realizar pagamento',
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(Icons.payment, color: Colors.white),
         backgroundColor: Colors.red,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _buildSummaryItem({required String label, required String value}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            label,
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
     );
   }
 }

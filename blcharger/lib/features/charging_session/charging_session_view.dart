@@ -3,6 +3,11 @@ import 'charging_session_data.dart';
 import 'package:blcharger/features/charging_session/charge_summary_view.dart';
 
 class ChargingSessionView extends StatefulWidget {
+  const ChargingSessionView({
+    super.key,
+    //required this.kwPrice,
+  });
+
   @override
   _ChargingSessionViewState createState() => _ChargingSessionViewState();
 }
@@ -17,19 +22,19 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
         title: const Text('Sessão de Carregamento'),
       ),
       body: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: GridView.count(
           crossAxisCount: 2,
           childAspectRatio:
               0.75, // Adjust this value to change the size of the squares.
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           mainAxisSpacing: 16.0,
           crossAxisSpacing: 16.0,
           children: <Widget>[
             _buildLiveCard(
               color: Colors.deepPurple,
               iconData: Icons.timer,
-              label: 'Tempo Decorrido',
+              label: 'Tempo decorrido:',
               stream: sessionData.elapsedTime,
               dataToString: (value) =>
                   value is Duration ? value.toString().split('.')[0] : '',
@@ -37,23 +42,23 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
             _buildLiveCard(
               color: Colors.deepPurple,
               iconData: Icons.bolt,
-              label: 'Energia Consumida',
-              stream: sessionData.powerConsumed,
+              label: 'Energia consumida:',
+              stream: sessionData.consumedPower,
               dataToString: (value) =>
                   value is double ? '${value.toStringAsFixed(2)} kWh' : '',
             ),
             _buildLiveCard(
               color: Colors.deepPurple,
               iconData: Icons.speed,
-              label: 'Potência Atual',
-              stream: sessionData.currentPower,
+              label: 'Potência atual:',
+              stream: sessionData.instantPower,
               dataToString: (value) =>
                   value is double ? '${value.toStringAsFixed(2)} kW' : '',
             ),
             _buildLiveCard(
               color: Colors.deepPurple,
               iconData: Icons.monetization_on,
-              label: 'Preço Atual',
+              label: 'Valor atual:',
               stream: sessionData.currentPrice,
               dataToString: (value) =>
                   value is double ? 'R\$ ${value.toStringAsFixed(2)}' : '',
@@ -63,12 +68,28 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          final elapsedTime =
+              Duration(seconds: 1220); //sessionData.elapsedTime.value;
+          final consumedPower = 10.0; //sessionData.consumedPower.value;
+          final instantPower = 42.0; //sessionData.instantPower.value;
+          final currentPrice = 33.20; //sessionData.currentPrice.value;
+
+          sessionData.dispose();
+
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ChargeSummaryView(sessionData: sessionData),
+            builder: (context) => ChargeSummaryView(
+              elapsedTime: elapsedTime,
+              consumedPower: consumedPower,
+              instantPower: instantPower,
+              currentPrice: currentPrice,
+            ),
           ));
         },
-        label: const Text('Finalizar carregamento'),
-        icon: const Icon(Icons.stop),
+        label: const Text(
+          'Finalizar carregamento',
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(Icons.payment, color: Colors.white),
         backgroundColor: Colors.red,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -91,33 +112,34 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
             if (snapshot.hasError) {
               return Text('Erro: ${snapshot.error}');
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment:
-                    CrossAxisAlignment.center, // This should center the text.
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Icon(
                     iconData,
-                    size:
-                        40.0, // Adjust this value to change the size of the icons.
+                    size: 48.0,
                     color: Colors.white,
                   ),
-                  const SizedBox(
-                      height:
-                          10.0), // Creates a bit of space between the icon and the text.
+                  const SizedBox(height: 10.0),
                   Text(
                     label,
-                    style: const TextStyle(fontSize: 18.0, color: Colors.white),
-                    textAlign: TextAlign
-                        .center, // This should center the text within the Text widget.
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                   Text(
                     dataToString(snapshot.data),
-                    style: const TextStyle(fontSize: 16.0, color: Colors.white),
-                    textAlign: TextAlign
-                        .center, // This should center the text within the Text widget.
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               );

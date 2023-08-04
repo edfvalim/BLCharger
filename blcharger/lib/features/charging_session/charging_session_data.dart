@@ -7,45 +7,53 @@ import 'dart:math';
 
 class ChargingSessionData {
   // Stream controller for each piece of data
-  final StreamController<double> _powerConsumedController = StreamController();
-  final StreamController<double> _currentPowerController = StreamController();
-  final StreamController<double> _currentPriceController = StreamController();
+  final StreamController<double> _consumedPowerController = StreamController();
+  final StreamController<double> _instantPowerController = StreamController();
+  final StreamController<double> _instantPriceController = StreamController();
   final StreamController<Duration> _elapsedTimeController = StreamController();
 
   // Stream getters
-  Stream<double> get powerConsumed => _powerConsumedController.stream;
-  Stream<double> get currentPower => _currentPowerController.stream;
-  Stream<double> get currentPrice => _currentPriceController.stream;
+  Stream<double> get consumedPower => _consumedPowerController.stream;
+  Stream<double> get instantPower => _instantPowerController.stream;
+  Stream<double> get currentPrice => _instantPriceController.stream;
   Stream<Duration> get elapsedTime => _elapsedTimeController.stream;
 
   // Constructor
   ChargingSessionData() {
-    var powerConsumed = 0.0;
+    var consumedPower = 0.0;
+    var elapsedSeconds = 0;
+    var instantPrice = 0.0;
+    var instantPower = 42.0;
+    _instantPowerController.add(instantPower);
+
+    // Simulation of a possible variation in the instant power
+    Timer.periodic(Duration(seconds: Random().nextInt(30)),
+        (Timer currentPowerTimer) {
+      instantPower = 42 + Random().nextDouble();
+      _instantPowerController.add(instantPower);
+    });
+
     // This is where data from the real source will be pulled and added to stream.
-    Timer.periodic(const Duration(seconds: 1), (Timer t) {
+    Timer.periodic(const Duration(seconds: 1), (Timer sessionTimer) {
       // Elapsed time
-      var elapsedSeconds = t.tick;
+      elapsedSeconds = sessionTimer.tick;
       _elapsedTimeController.add(Duration(seconds: elapsedSeconds));
 
-      // Current power: 41.5 kW + random number between 0 and 0.5 kW
-      var currentPower = 41.5 + Random().nextDouble() * 0.5;
-      _currentPowerController.add(currentPower);
+      // Add power consumed in one second to total power consumed (in kWh)
+      consumedPower += instantPower / 3600.0;
+      _consumedPowerController.add(consumedPower);
 
-      // Power consumed: (average current power * elapsed time) / 3600 to convert to kW/h
-      powerConsumed += currentPower / 3600.0;
-      _powerConsumedController.add(powerConsumed);
-
-      // Price: power consumed / 2
-      var price = powerConsumed * 1.9;
-      _currentPriceController.add(price);
+      // Instant price based on power consumed
+      instantPrice = consumedPower * 1.9;
+      _instantPriceController.add(instantPrice);
     });
   }
 
   // Close all streams when done
   void dispose() {
-    _powerConsumedController.close();
-    _currentPowerController.close();
-    _currentPriceController.close();
+    _consumedPowerController.close();
+    _instantPowerController.close();
+    _instantPriceController.close();
     _elapsedTimeController.close();
   }
 }
