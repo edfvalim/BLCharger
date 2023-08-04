@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'charging_session_data.dart';
 import 'package:blcharger/features/charging_session/charge_summary_view.dart';
 
+// Constants
+const cardColor = Colors.deepPurple;
+const paddingValue = 16.0;
+
 class ChargingSessionView extends StatefulWidget {
   const ChargingSessionView({
     super.key,
-    //required this.kwPrice,
   });
 
   @override
@@ -22,17 +25,15 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
         title: const Text('Sessão de Carregamento'),
       ),
       body: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(paddingValue),
         child: GridView.count(
           crossAxisCount: 2,
-          childAspectRatio:
-              0.75, // Adjust this value to change the size of the squares.
-          padding: const EdgeInsets.all(16.0),
-          mainAxisSpacing: 16.0,
-          crossAxisSpacing: 16.0,
+          childAspectRatio: 0.75,
+          padding: const EdgeInsets.all(paddingValue),
+          mainAxisSpacing: paddingValue,
+          crossAxisSpacing: paddingValue,
           children: <Widget>[
             _buildLiveCard(
-              color: Colors.deepPurple,
               iconData: Icons.timer,
               label: 'Tempo decorrido:',
               stream: sessionData.elapsedTime,
@@ -40,7 +41,6 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
                   value is Duration ? value.toString().split('.')[0] : '',
             ),
             _buildLiveCard(
-              color: Colors.deepPurple,
               iconData: Icons.bolt,
               label: 'Energia consumida:',
               stream: sessionData.consumedPower,
@@ -48,7 +48,6 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
                   value is double ? '${value.toStringAsFixed(2)} kWh' : '',
             ),
             _buildLiveCard(
-              color: Colors.deepPurple,
               iconData: Icons.speed,
               label: 'Potência atual:',
               stream: sessionData.instantPower,
@@ -56,7 +55,6 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
                   value is double ? '${value.toStringAsFixed(2)} kW' : '',
             ),
             _buildLiveCard(
-              color: Colors.deepPurple,
               iconData: Icons.monetization_on,
               label: 'Valor atual:',
               stream: sessionData.currentPrice,
@@ -97,18 +95,18 @@ class _ChargingSessionViewState extends State<ChargingSessionView> {
   }
 
   Widget _buildLiveCard({
-    required Color color,
+    Color color = cardColor,
     required IconData iconData,
     required String label,
-    required Stream stream,
+    required Stream<dynamic> stream,
     required String Function(dynamic value) dataToString,
   }) {
     return Card(
       color: color,
       child: Center(
-        child: StreamBuilder(
+        child: StreamBuilder<dynamic>(
           stream: stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasError) {
               return Text('Erro: ${snapshot.error}');
             } else if (snapshot.connectionState == ConnectionState.waiting) {
