@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:blcharger/features/payment/payment_view.dart';
 
 class ChargeSummaryView extends StatelessWidget {
   final Duration elapsedTime;
@@ -53,9 +54,10 @@ class ChargeSummaryView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //   builder: (context) => PaymentView(),
-          // ));
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const PaymentView()),
+            (Route<dynamic> route) => false,
+          );
         },
         label: const Text(
           'Realizar pagamento',
