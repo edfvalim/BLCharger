@@ -1,4 +1,4 @@
-import 'package:blcharger/features/auth/login_view.dart';
+import 'package:blcharger/features/auth/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.deepPurple,
         ),
       ),
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 }
