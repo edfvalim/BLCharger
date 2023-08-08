@@ -1,2 +1,9 @@
 
 .DS_Store
+blcharger/android/app/google-services.json
+blcharger/ios/firebase_app_id_file.json
+blcharger/pubspec.lock
+blcharger/ios/Runner/GoogleService-Info.plist
+blcharger/ios/Runner.xcodeproj/project.pbxproj
+blcharger/lib/firebase_options.dart
+blcharger/pubspec.lock

@@ -1,7 +1,5 @@
-import 'package:blcharger/features/auth/registration_view.dart';
 import 'package:blcharger/features/home/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:blcharger/features/auth/password_reset_view.dart';
 import 'package:blcharger/core/widgets/blc_logo.dart';
 
 class SplashView extends StatefulWidget {
