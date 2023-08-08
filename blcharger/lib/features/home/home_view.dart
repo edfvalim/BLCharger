@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:blcharger/core/widgets/blc_logo.dart';
-import 'package:blcharger/features/home/widgets/button_grid.dart';
+import 'package:blcharger/core/widgets/button_grid.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

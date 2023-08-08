@@ -1,8 +1,8 @@
-import 'package:blcharger/features/auth/login_view.dart';
 import 'package:blcharger/features/chargers_list/chargers_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:blcharger/core/widgets/custom_fab.dart';
 import 'package:blcharger/features/qr_code_scanner/qr_code_scanner_view.dart';
+import 'package:go_router/go_router.dart';
 
 class ButtonGrid extends StatelessWidget {
   const ButtonGrid({super.key});
@@ -62,12 +62,7 @@ class ButtonGrid extends StatelessWidget {
             icon: Icons.settings,
             label: 'Ajustes',
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginView(),
-                ),
-              );
+              context.push('/profile');
             },
           ),
         ],
